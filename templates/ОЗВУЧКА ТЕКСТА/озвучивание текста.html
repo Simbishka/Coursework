@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  *, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+  font: 1.25rem/1.5 'Poppins', sans-serif;
+}
+
+.wrapper {
+  display: grid;
+  gap: 20px;
+  width: 600px;
+  max-width: calc(100vw - 40px);
+  padding: 30px;
+  border-radius: 3px;
+  background-color: #0002;
+}
+
+#text {
+  display: block;
+  height: 100px;
+  padding: 10px;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  color: #2f8f69;
+  resize: vertical;}
+
+.properties {
+  display: grid;
+  grid-template-columns: max-content minmax(0, auto) 40px;
+  gap: 20px;
+  padding: 20px;
+  background-color: #0003;
+}
+
+#voice {
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+#speak {
+  padding: 10px;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: #0009;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+button {
+  padding: 5px;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background-color: #2f8f69;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <label for="text">Text to speak:</label>
+        <textarea id="text">Добрый день! Не стесняйтесь изменять этот текст и не забудьте включить звук погромче.</textarea>
+        <div class="properties">
+          <label for="voice">Голос:</label>
+          <select id="voice"></select>
+          <div></div>
+          
+          
+          <label for="pitch">Тональность:</label>
+          <input id="pitch" type="range" min="0.1" max="2" step="0.1" value="1">
+          <output for="pitch">1</output>
+      
+          <label for="rate">Скорость:</label>
+          <input id="rate" type="range" min="0.1" max="2" step="0.1" value="1">
+          <output for="rate">1</output>
+      
+          <label for="volume">Громкость:</label>
+          <input id="volume" type="range" min="0" max="1" step="0.1" value="1">
+          <output for="volume">1</output>
+        </div>
+        <button id="speak">Прослушать текст</button>
+        <button id="pause">Пауза</button>
+        <button id="end">Стоп</button>
+      </div>
+
+    
+
+<script>
+   // grab the UI elements to work with
+const textEl = document.getElementById('text');
+const voiceInEl = document.getElementById('voice');
+const pitchInEl = document.getElementById('pitch');
+const rateInEl = document.getElementById('rate');
+const volumeInEl = document.getElementById('volume');
+const pitchOutEl = document.querySelector('output[for="pitch"]');
+const rateOutEl = document.querySelector('output[for="rate"]');
+const volumeOutEl = document.querySelector('output[for="volume"]');
+const speakEl = document.getElementById('speak');
+const pauseEl = document.getElementById('pause');
+const endEl = document.getElementById('end');
+
+// add UI event handlers
+pitchInEl.addEventListener('change', updateOutputs);
+rateInEl.addEventListener('change', updateOutputs);
+volumeInEl.addEventListener('change', updateOutputs);
+speakEl.addEventListener('click', speakText);
+pauseEl.addEventListener('click', pause);
+endEl.addEventListener('click', end);
+
+
+
+
+
+// update voices immediately and whenever they are loaded
+updateVoices();
+window.speechSynthesis.onvoiceschanged = updateVoices;
+
+function updateOutputs() {
+  // display current values of all range inputs
+  pitchOutEl.textContent = pitchInEl.value;
+  rateOutEl.textContent = rateInEl.value;
+  volumeOutEl.textContent = volumeInEl.value;
+}
+
+function updateVoices() {
+  // add an option for each available voice that isn't already added
+  window.speechSynthesis.getVoices().forEach(voice => {
+    const isAlreadyAdded = [...voiceInEl.options].some(option => option.value === voice.voiceURI);
+    if (!isAlreadyAdded) {
+      const option = new Option(voice.name, voice.voiceURI, voice.default, voice.default);
+      voiceInEl.add(option);
+    }
+  });
+}
+
+function speakText() {
+    if (window.speechSynthesis.speaking) {
+    // there's an unfinished utterance
+    window.speechSynthesis.resume();
+  } 
+ 
+
+  // create new utterance with all the properties
+  const text = textEl.value;
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.voice = window.speechSynthesis.getVoices().find(voice => voice.voiceURI === voiceInEl.value);
+  utterance.pitch = pitchInEl.value;
+  utterance.rate = rateInEl.value;
+  utterance.volume = volumeInEl.value;
+  
+     
+  
+  // speak that utterance
+  window.speechSynthesis.speak(utterance);
+}
+function pause(){
+  window.speechSynthesis.pause();
+}
+function end() {
+  window.speechSynthesis.cancel();
+}
+
+
+
+
+</script>
+</body>
+</html>

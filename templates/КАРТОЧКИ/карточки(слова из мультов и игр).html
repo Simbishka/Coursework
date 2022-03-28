@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
+	font-family: Trebuchet MS;
+	background: #000;
+}
+
+.wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 60%;
+}
+
+.informBlock {
+	width: 30%;
+	height: 300px;
+	background: #1b1b1b;
+	padding: 30px;
+	box-sizing: border-box;
+	transition: .4s;
+  background: url("http://3.bp.blogspot.com/-b5mAfEsKK5k/UFjKGL2vadI/AAAAAAAABSY/tLVCKhTnzms/s320/GuildWars2-01-1600x1200.jpg") 40% no-repeat;
+  background-size: cover;
+}
+.informBlock_2 {
+  width: 30%;
+	height: 300px;
+	background: #1b1b1b;
+	padding: 30px;
+	box-sizing: border-box;
+	transition: .4s;
+  background: url("https://static.dochkisinochki.ru/upload/_iblock/eb/d3/a4/Bakugan.jpg") 100% no-repeat;
+  background-size: cover;
+}
+.informBlock_3 {
+  width: 30%;
+	height: 300px;
+	background: #1b1b1b;
+	padding: 30px;
+	box-sizing: border-box;
+	transition: .4s;
+  background: url("https://play-lh.googleusercontent.com/vuJkQ4I9aFavanyHjbLiMBOcYmlAlywV3R-oFDB_BNUqNHExcCNs8_QR_RBkAFsp=s320-rw") 100% no-repeat;
+  background-size: cover;
+}
+
+
+
+.informBlock i {
+	color: #e9204f;
+	font-size: 35px;
+	margin-top: 20px;
+	transition: .4s;
+  
+}
+
+.mainText {
+	color: rgb(38, 105, 47);
+	margin-left: 50px;
+  margin-top: 75px;
+	font-size: 20px;
+}
+
+.secondText {
+	color: rgb(80, 175, 139);
+	font-size: 14px;
+	margin-top: 100px;
+  margin-left: 45px;
+  
+}
+
+.informBlock:hover {
+	border: 1px solid #413f3f;
+  opacity: 0.8;
+}
+.informBlock_2:hover {
+	border: 1px solid #413f3f;
+  opacity: 0.8;
+}
+.informBlock_3:hover {
+	border: 1px solid #413f3f;
+  opacity: 0.8;
+}
+
+.informBlock:hover i {
+	color: #000;
+  
+}
+
+.informBlock:hover .underlineBlock {
+	border-color: #fff;
+}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+		<div class="informBlock">
+			<i class="fas fa-clipboard-list"></i>
+			<h5 class="mainText">Игры</h5>
+			<p class="secondText">Какой-то короткий текст</p>
+		</div>
+
+		<div class="informBlock_2">
+			<i class="fas fa-rocket"></i>
+			<h5 class="mainText">Мультфильмы</h5>
+			<p class="secondText">Какой-то короткий текст</p>
+		</div>
+
+		<div class="informBlock_3">
+			<i class="fas fa-chart-pie"></i>
+			<h5 class="mainText">English Galaxy</h5>
+			<p class="secondText">Полезная лексика</p>
+		</div>
+	</div>
+
+</body>
+</html>
